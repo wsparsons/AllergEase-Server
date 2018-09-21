@@ -17,4 +17,3 @@ services:
 
 env:
   - NODE_ENV="testing"
-  - DATABASE_NAME='nutriscan'
