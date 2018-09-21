@@ -3,19 +3,19 @@ const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 
 describe("Users Model", () => {
-  describe("create()", () => {
-    test("create function should exists", () => {
-      expect(usersModel.create).toBeDefined();
+  describe("signup()", () => {
+    test("signup function should exists", () => {
+      expect(usersModel.signup).toBeDefined();
     });
 
-    test("should create a new user with valid information", async () => {
+    test("should signup a new user with valid information", async () => {
       const newUser = {
         first_name: "First",
         last_name: "Last",
         email: "example@example.com",
         password: "password"
       };
-      const response = await usersModel.create(newUser);
+      const response = await usersModel.signup(newUser);
 
       expect(response).toBeTruthy();
       expect(response).toBeInstanceOf(Object);
@@ -34,13 +34,25 @@ describe("Users Model", () => {
       expect(response.password).not.toMatch(newUser.password);
     });
 
+    test("should return an error if user is registering with an existing email", async () => {
+      const newUser = {
+        first_name: "First",
+        last_name: "Last",
+        email: "super@man.com",
+        password: "password"
+      };
+      await expect(usersModel.signup(newUser)).rejects.toMatchObject({
+        message: "userExists"
+      })
+    });
+
     test("should return an error if the first name is missing", async () => {
       const newUser = {
         last_name: "Last",
         email: "example@example.com",
         password: "password"
       };
-      await expect(usersModel.create(newUser)).rejects.toMatchObject({
+      await expect(usersModel.signup(newUser)).rejects.toMatchObject({
         message: "userFirstNameRequired"
       });
     });
@@ -51,7 +63,7 @@ describe("Users Model", () => {
         email: "example@example.com",
         password: "password"
       };
-      await expect(usersModel.create(newUser)).rejects.toMatchObject({
+      await expect(usersModel.signup(newUser)).rejects.toMatchObject({
         message: "userLastNameRequired"
       });
     });
@@ -62,7 +74,7 @@ describe("Users Model", () => {
         last_name: "Last",
         password: "password"
       };
-      await expect(usersModel.create(newUser)).rejects.toMatchObject({
+      await expect(usersModel.signup(newUser)).rejects.toMatchObject({
         message: "userEmailRequired"
       });
     });
@@ -73,7 +85,7 @@ describe("Users Model", () => {
         last_name: "Last",
         email: "example@example.com"
       };
-      await expect(usersModel.create(newUser)).rejects.toMatchObject({
+      await expect(usersModel.signup(newUser)).rejects.toMatchObject({
         message: "userPasswordRequired"
       });
     });
@@ -121,7 +133,7 @@ describe("Users Model", () => {
       });
     });
 
-    test("should return an error if existing user gives wrong email", async () => {
+    test("should return an error if user gives wrong email", async () => {
       const user = {
         email: "supersuper@man.com",
         password: "password"
