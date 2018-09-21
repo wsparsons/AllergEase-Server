@@ -8,6 +8,9 @@ node_js:
 before_script: 
   - psql -c 'create database nutriscan_test;' -U postgres
 
+env:
+  - NODE_ENV="testing"
+
 script:
   - npm run reboot
   - npm run coverage
@@ -15,5 +18,3 @@ script:
 services:
   -postgresql 
 
-env:
-  - NODE_ENV="testing"
