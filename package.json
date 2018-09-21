@@ -11,14 +11,20 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run ",
-    "test": "NODE_ENV=testing jest --runInBand --verbose"
+    "lint": "eslint __tests__/**",
+    "test": "NODE_ENV=testing jest --runInBand --verbose __tests__/**/*.test.js",
+    "coverage": "NODE_ENV=testing jest --runInBand --coverage --verbose __tests__/**/*.test.js",
+    "test:watch": "NODE_ENV=testing jest --watchAll --runInBand --coverage --verbose __tests__/**/*.test.js"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./__tests__/support.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wsparsons/NutriScan-Server.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Wendy Parsons",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wsparsons/NutriScan-Server/issues"
@@ -39,6 +45,7 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
+    "eslint-plugin-jest": "^21.22.0",
     "jest": "^23.6.0"
   }
 }

@@ -1,0 +1,19 @@
+sude: false
+
+language: node_js
+
+node_js:
+  - "stable"
+
+before_script: 
+  - psql -c 'create database nutriscan_test;' -U postgres
+
+script:
+  - npm run reboot
+  - npm run coverage
+
+services:
+  -postgresql 
+
+env:
+  - NODE_ENV="testing"
