@@ -15,20 +15,31 @@ function parseToken(header) {
   return verify(token, SECRET_KEY);
 }
 
-function isLoggedIn(req, res, next){
-  try {
-    parseToken(req.header.authorization)
-    next()
-  } catch (e){
-    next({
-      status: 401,
-      error: `Session has expired. Please login again.`
-    })
-  }
-}
+// function isLoggedIn(req, res, next){
+//   try {
+//     parseToken(req.headers.authorization)
+//     next()
+//   } catch (err){
+//     next("sessionExpired")
+//   }
+// }
+
+// async function isAuthorized(req, res, next){
+//   try {
+//     const authorization = req.headers.authorization
+//     if(!authorization) {
+//       return next("unauthorizedAccess")
+//     }
+
+//     const token = parseToken(authorization)
+//     const userId = token.sub.id 
+
+//   }
+// }
 
 module.exports = {
   createToken,
   parseToken,
-  isLoggedIn
+  // isLoggedIn,
+  // isAuthorized
 }
