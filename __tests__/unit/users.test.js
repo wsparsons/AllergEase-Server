@@ -133,7 +133,7 @@ describe("Users Model", () => {
       });
     });
 
-    test("should return an error if user gives wrong email", async () => {
+    test("should return an error if user tries to login with wrong email", async () => {
       const user = {
         email: "supersuper@man.com",
         password: "password"
@@ -144,7 +144,7 @@ describe("Users Model", () => {
       });
     });
 
-    test("should return an error if existing user gives wrong password", async () => {
+    test("should return an error if user tries to login with wrong password", async () => {
       const user = {
         email: "super@man.com",
         password: "password1"

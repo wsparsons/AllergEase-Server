@@ -13,6 +13,7 @@ app.use(require('body-parser').json())
 
 // ROUTES
 app.use('/api/users', require('./routes/users'))
+app.use('/api/allergens', require('./routes/allergens'))
 
 // DEFAULT ROUTES
 app.use((req, res) => {
