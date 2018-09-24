@@ -1,5 +1,5 @@
 const { promisify } = require("util");
-const db = require("../db");
+const knex = require("../db");
 const bcrypt = require("bcryptjs");
 const {
   isValidUserCreate,
@@ -9,12 +9,12 @@ const {
 async function signup({ first_name, last_name, email, password }) {
   isValidUserCreate({ first_name, last_name, email, password });
 
-  const [user] = await db("users").where({ email });
+  const [user] = await knex("users").where({ email });
   if (user) throw new Error("userExists");
 
   const hashed = await promisify(bcrypt.hash)(password, 8);
 
-  return await db("users")
+  return await knex("users")
     .insert({ first_name, last_name, email, password: hashed })
     .returning("*")
     .then(([response]) => response);
@@ -23,7 +23,7 @@ async function signup({ first_name, last_name, email, password }) {
 async function login({ email, password }) {
   isValidUserLogin({ email, password });
 
-  const [user] = await db("users").where({ email });
+  const [user] = await knex("users").where({ email });
   if (!user) throw new Error("userInfoInvalid");
 
   const isValid = await promisify(bcrypt.compare)(password, user.password);
