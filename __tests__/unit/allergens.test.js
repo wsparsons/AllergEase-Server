@@ -46,11 +46,9 @@ describe("Allergens Model", () => {
         message: "allergenNotFound"
       });
 
-      await expect(allergensModel.findAllergen(100000)).rejects.toMatchObject(
-        {
-          message: "allergenNotFound"
-        }
-      );
+      await expect(allergensModel.findAllergen(100000)).rejects.toMatchObject({
+        message: "allergenNotFound"
+      });
     });
   });
 
@@ -76,19 +74,22 @@ describe("Allergens Model", () => {
     });
 
     test("should return an error if body has invalid or missing params", async () => {
-      await expect(allergensModel.createAllergen({})).rejects.toMatchObject({
-        message: "allergyFieldRequired"
+      await expect(
+        allergensModel.createAllergen({ allergy: null })
+      ).rejects.toMatchObject({
+        message: "allergenFieldRequired"
       });
-
-      await expect(allergensModel.createAllergen({})).rejects.toMatchObject({
-        message: "allergyFieldRequired"
+      await expect(
+        allergensModel.createAllergen({ allergy: "garlic", name: "garlic" })
+      ).rejects.toMatchObject({
+        message: "allergenFieldRequired"
       });
       await expect(
         allergensModel.createAllergen({ allergies: "garlic" })
-      ).rejects.toMatchObject({ message: "allergyFieldRequired" });
+      ).rejects.toMatchObject({ message: "allergenFieldRequired" });
       await expect(
         allergensModel.createAllergen({ allergies: "garlic", name: "garlic" })
-      ).rejects.toMatchObject({ message: "allergyFieldRequired" });
+      ).rejects.toMatchObject({ message: "allergenFieldRequired" });
     });
   });
 
@@ -136,17 +137,22 @@ describe("Allergens Model", () => {
       const peanuts = { allergy: "peanuts" };
 
       await expect(allergensModel.updateAllergen(1, {})).rejects.toMatchObject({
-        message: "allergyFieldRequired"
+        message: "allergenFieldRequired"
+      });
+      await expect(
+        allergensModel.updateAllergen(1, { allergy: "garlic", name: "garlic" })
+      ).rejects.toMatchObject({
+        message: "allergenFieldRequired"
       });
       await expect(
         allergensModel.updateAllergen(1, { allergies: "garlic" })
-      ).rejects.toMatchObject({ message: "allergyFieldRequired" });
+      ).rejects.toMatchObject({ message: "allergenFieldRequired" });
       await expect(
         allergensModel.updateAllergen(1, {
           allergies: "garlic",
           name: "garlic"
         })
-      ).rejects.toMatchObject({ message: "allergyFieldRequired" });
+      ).rejects.toMatchObject({ message: "allergenFieldRequired" });
     });
   });
 
@@ -160,7 +166,7 @@ describe("Allergens Model", () => {
       const response = await allergensModel.deleteAllergen(1);
       const endLength = await allergensModel.getAllAllergens();
       const peanut = { id: 1, allergy: "peanut" };
-      
+
       expect(endLength.length).toEqual(startLength.length - 1);
       expect(response[0]).toMatchObject(peanut);
       expect(response[0]).toMatchObject({

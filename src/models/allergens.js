@@ -1,4 +1,8 @@
 const db = require("../db");
+const {
+  isValidAllergenCreate,
+  isValidAllergenUpdate
+} = require("../errorHandling/bodyInspect");
 
 function getAllAllergens() {
   return db("allergens").select("id", "allergy");
@@ -37,30 +41,37 @@ function findAllergen(id) {
     });
 }
 
-function createAllergen(body) {
-  const fields = ["allergy"];
-  if (!fields.every(field => body[field]))
-    return Promise.reject(new Error("allergyFieldRequired"));
-  if (!Object.keys(body).every(field => fields.includes(field)))
-    return Promise.reject(new Error("allergyFieldRequired"));
+async function createAllergen(body) {
+  isValidAllergenCreate(body);
 
-  return db("allergens")
+  const fields = ["allergy"];
+
+  if (!fields.every(field => body[field]))
+    return Promise.reject(new Error("allergenFieldRequired"));
+  if (!Object.keys(body).every(field => fields.includes(field)))
+    return Promise.reject(new Error("allergenFieldRequired"));
+
+  return await db("allergens")
     .insert(body)
     .returning(["*"]);
 }
 
-function updateAllergen(id, body) {
+async function updateAllergen(id, body) {
+  isValidAllergenUpdate(body);
+
   const fields = ["allergy"];
+
   if (!Number.isInteger(id) || id < 0 || !id)
     return Promise.reject(new Error("allergenNotFound"));
-  if (!fields.every(field => body[field]))
-    return Promise.reject(new Error("allergyFieldRequired"));
+  if (!Object.keys(body).length === 0)
+    return Promise.reject(new Error("allergenFieldRequired"));
   if (!Object.keys(body).every(field => fields.includes(field)))
-    return Promise.reject(new Error("allergyFieldRequired"));
+    return Promise.reject(new Error("allergenFieldRequired"));
 
-  return findAllergen(id).then(response => {
+  return await findAllergen(id).then(response => {
     return db("allergens")
-      .update({ ...body })
+      .where({ id })
+      .update({ ...response, ...body, updated_at: new Date() })
       .returning(["*"]);
   });
 }
