@@ -27,21 +27,10 @@ function processErrorMessage(err) {
           message: "User could not be registered"
         };
       case "userInfoInvalid":
-        return {
-          status: 404,
-          message: "User email or password is invalid"
-        };
-      case "sessionExpired":
-        return {
-          status: 401,
-          message: "Session has expired. Please login again"
-        };
-        case "unauthorizedAccess":
-        return {
-          status: 401,
-          message: "You are not authorized to access this route"
-        };
-
+        return { status: 404, message: "User email or password is invalid" };
+      case "allergenNotFound": 
+        return { status: 404, message: "Allergen with provided ID is not found" };
+      
       default:
         return {
           status: 500,
