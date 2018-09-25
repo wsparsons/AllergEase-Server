@@ -13,6 +13,8 @@ function processErrorMessage(err) {
         return { status: 400, message: "User could not be registered" };
       case "userInfoInvalid":
         return { status: 404, message: "User email or password is invalid" };
+      case "allergenNotFound": 
+        return { status: 404, message: "Allergen with provided ID is not found" };
 
       default:
         return {
