@@ -5,7 +5,7 @@ const { SECRET_KEY } = process.env;
 
 describe("Util: Auth", () => {
   describe("createToken()", () => {
-    test("createToken function should exists", () => {
+    test("createToken function is defined", () => {
       expect(createToken).toBeDefined();
     });
 
@@ -18,7 +18,7 @@ describe("Util: Auth", () => {
   });
 
   describe("parseToken()", () => {
-    test("parseToken function should exists", () => {
+    test("parseToken function is defined", () => {
       expect(parseToken).toBeDefined();
     });
 
@@ -31,10 +31,10 @@ describe("Util: Auth", () => {
     });
   });
 
-  describe("isLoggedIn()", ()=> {
-    test("isLoggedIn function should exists", () => {
-      expect(isLoggedIn).toBeDefined()
-    })
-  })
+  // describe("isLoggedIn()", ()=> {
+  //   test("isLoggedIn function should exists", () => {
+  //     expect(isLoggedIn).toBeDefined()
+  //   })
+  // })
 });
 

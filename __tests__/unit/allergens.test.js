@@ -18,13 +18,13 @@ describe("Allergens Model", () => {
     });
   });
 
-  describe("getOneAllergen()", () => {
-    test("getOneAllergen function is defined", () => {
-      expect(allergensModel.getOneAllergen).toBeDefined();
+  describe("findAllergen()", () => {
+    test("findAllergen function is defined", () => {
+      expect(allergensModel.findAllergen).toBeDefined();
     });
 
     test("should return an allergen when given an id", async () => {
-      const response = await allergensModel.getOneAllergen(1);
+      const response = await allergensModel.findAllergen(1);
 
       expect(response).toMatchObject({
         id: expect.any(Number),
@@ -33,20 +33,20 @@ describe("Allergens Model", () => {
       });
     });
 
-    test("should return an error if id is invalid", async () => {
-      await expect(allergensModel.getOneAllergen()).rejects.toMatchObject({
+    test("should return an error if id is invalid or missing", async () => {
+      await expect(allergensModel.findAllergen()).rejects.toMatchObject({
         message: "allergenNotFound"
       });
 
-      await expect(allergensModel.getOneAllergen(-1)).rejects.toMatchObject({
+      await expect(allergensModel.findAllergen(-1)).rejects.toMatchObject({
         message: "allergenNotFound"
       });
 
-      await expect(allergensModel.getOneAllergen("one")).rejects.toMatchObject({
+      await expect(allergensModel.findAllergen("one")).rejects.toMatchObject({
         message: "allergenNotFound"
       });
 
-      await expect(allergensModel.getOneAllergen(100000)).rejects.toMatchObject(
+      await expect(allergensModel.findAllergen(100000)).rejects.toMatchObject(
         {
           message: "allergenNotFound"
         }
@@ -93,7 +93,7 @@ describe("Allergens Model", () => {
   });
 
   describe("updateAllergen()", () => {
-    test("updateAllergen function should exists", () => {
+    test("updateAllergen function is defined", () => {
       expect(allergensModel.updateAllergen).toBeDefined();
     });
 
@@ -151,7 +151,7 @@ describe("Allergens Model", () => {
   });
 
   describe("deleteAllergen()", () => {
-    test("deleteAllergen function should exists", () => {
+    test("deleteAllergen function is defined", () => {
       expect(allergensModel.deleteAllergen).toBeDefined();
     });
 
@@ -160,13 +160,28 @@ describe("Allergens Model", () => {
       const response = await allergensModel.deleteAllergen(1);
       const endLength = await allergensModel.getAllAllergens();
       const peanut = { id: 1, allergy: "peanut" };
-
+      
       expect(endLength.length).toEqual(startLength.length - 1);
       expect(response[0]).toMatchObject(peanut);
       expect(response[0]).toMatchObject({
         id: expect.any(Number),
         allergy: expect.any(String)
       });
+    });
+
+    test("should return an error if id is invalid or missing", async () => {
+      await expect(allergensModel.deleteAllergen("1")).rejects.toMatchObject({
+        message: "allergenNotFound"
+      });
+      await expect(allergensModel.deleteAllergen(null)).rejects.toMatchObject({
+        message: "allergenNotFound"
+      });
+      await expect(allergensModel.deleteAllergen(-1)).rejects.toMatchObject({
+        message: "allergenNotFound"
+      });
+      await expect(allergensModel.deleteAllergen(100000)).rejects.toMatchObject(
+        { message: "allergenNotFound" }
+      );
     });
   });
 });

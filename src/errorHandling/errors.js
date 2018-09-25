@@ -27,10 +27,22 @@ function processErrorMessage(err) {
           message: "User could not be registered"
         };
       case "userInfoInvalid":
-        return { status: 404, message: "User email or password is invalid" };
-      case "allergenNotFound": 
-        return { status: 404, message: "Allergen with provided ID is not found" };
-      
+        return {
+          status: 404,
+          message: "User email or password is invalid"
+        };
+      case "allergenNotFound":
+        return {
+          status: 404,
+          message: "Allergen with provided ID is not found"
+        };
+      case "allergyFieldRequired":
+        return {
+          status: 400,
+          message:
+            "At least one(1) of the following fields is required: 'allergy' "
+        };
+
       default:
         return {
           status: 500,

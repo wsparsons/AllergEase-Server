@@ -4,7 +4,7 @@ const { promisify } = require("util");
 
 describe("Users Model", () => {
   describe("signup()", () => {
-    test("signup function should exists", () => {
+    test("signup function is defined", () => {
       expect(usersModel.signup).toBeDefined();
     });
 
@@ -92,7 +92,7 @@ describe("Users Model", () => {
   });
 
   describe("login()", () => {
-    test("login function should exists", () => {
+    test("login function is defined", () => {
       expect(usersModel.login).toBeDefined();
     });
 
