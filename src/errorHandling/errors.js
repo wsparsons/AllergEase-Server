@@ -36,11 +36,52 @@ function processErrorMessage(err) {
           status: 404,
           message: "Allergen with provided ID is not found"
         };
-      case "allergyFieldRequired":
+      case "allergenFieldRequired":
         return {
           status: 400,
           message:
             "At least one(1) of the following fields is required: 'allergy' "
+        };
+      case "productNotFound":
+        return {
+          status: 404,
+          message: "Product with provided ID is not found"
+        };
+      case "productFieldRequired":
+        return {
+          status: 400,
+          message:
+            "At least one(1) of the following fields is required: 'name', 'ndbno', 'barcode', 'ingredients', 'manufacturer', 'image' "
+        };
+      case "productNameRequired":
+        return {
+          status: 400,
+          message: "Product 'name' is required"
+        };
+      case "productNdbnoRequired":
+        return {
+          status: 400,
+          message: "Product 'ndbno' is required"
+        };
+      case "productBarcodeRequired":
+        return {
+          status: 400,
+          message: "Product 'barcode' is required"
+        };
+      case "productIngredientsRequired":
+        return {
+          status: 400,
+          message: "Product 'ingredients' is required"
+        };
+      case "productManufacturerRequired":
+        return {
+          status: 400,
+          message: "Product 'manufacturer' is required"
+        };
+      case "productImageRequired":
+        return {
+          status: 400,
+          message: "Product 'image' is required"
         };
 
       default:

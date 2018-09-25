@@ -10,7 +10,32 @@ function isValidUserLogin({ email, password }) {
   if (!password) throw new Error("userPasswordRequired");
 }
 
+function isValidAllergenCreate({ allergy }) {
+  if (!allergy) throw new Error("allergenFieldRequired");
+}
+
+function isValidAllergenUpdate({ allergy }) {
+  if (!allergy) throw new Error("allergenFieldRequired");
+}
+
+function isValidProductCreate({ name, ndbno, barcode, ingredients, manufacturer, image }) {
+  if (!name) throw new Error("productNameRequired");
+  if (!ndbno) throw new Error("productNdbnoRequired");
+  if (!barcode) throw new Error("productBarcodeRequired");
+  if (!ingredients) throw new Error("productIngredientsRequired");
+  if (!manufacturer) throw new Error("productManufacturerRequired");
+  if (!image) throw new Error("productImageRequired");
+}
+
+function isValidProductUpdate({ name, ndbno, barcode, ingredients, manufacturer, image }) {
+  if (!name && !ndbno && !barcode && !ingredients && !manufacturer && !image) throw new Error("productFieldRequired");
+}
+
 module.exports = {
   isValidUserCreate,
-  isValidUserLogin
+  isValidUserLogin,
+  isValidAllergenCreate,
+  isValidAllergenUpdate,
+  isValidProductCreate,
+  isValidProductUpdate
 };
