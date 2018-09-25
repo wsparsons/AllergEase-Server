@@ -16,7 +16,7 @@ function getAllAllergens() {
   // });
 }
 
-function getOneAllergen(id) {
+function findAllergen(id) {
   if (!Number.isInteger(id) || id < 0 || !id)
     return Promise.reject(new Error("allergenNotFound"));
 
@@ -58,32 +58,28 @@ function updateAllergen(id, body) {
   if (!Object.keys(body).every(field => fields.includes(field)))
     return Promise.reject(new Error("allergyFieldRequired"));
 
-  return getOneAllergen(id).then(response => {
+  return findAllergen(id).then(response => {
     return db("allergens")
       .update({ ...body })
       .returning(["*"]);
   });
 }
 
-function deleteAllergen(id){
+function deleteAllergen(id) {
   if (!Number.isInteger(id) || id < 0 || !id)
-  return Promise.reject(new Error("allergenNotFound"));
+    return Promise.reject(new Error("allergenNotFound"));
 
-  return db('allergens')
-    .where({id})
-    .del()
-    .returning(["*"])
-    
-  //   return getOneAllergen(id).then(response => {
-  //   return db('allergens')
-  //     .del({ id })
-  //     .returning(['*'])
-  // })
+  return findAllergen(id).then(response => {
+    return db("allergens")
+      .where({ id })
+      .del()
+      .returning(["*"]);
+  });
 }
 
 module.exports = {
   getAllAllergens,
-  getOneAllergen,
+  findAllergen,
   createAllergen,
   updateAllergen,
   deleteAllergen
