@@ -1,6 +1,16 @@
 function processErrorMessage(err) {
   if (err.message) {
     switch (err.message) {
+      case "sessionExpired":
+        return {
+          status: 401,
+          message: "Session has expired. Please login again"
+        };
+      case "unauthorizedAccess":
+        return {
+          status: 401,
+          message: "You are not authorized to access this route"
+        };
       case "userFirstNameRequired":
         return {
           status: 400,
@@ -82,6 +92,22 @@ function processErrorMessage(err) {
         return {
           status: 400,
           message: "Product 'image' is required"
+        };
+      case "aliasDescriptionRequired":
+        return {
+          status: 400,
+          message: "Allergen alias 'description' is required"
+        };
+      case "aliasFieldRequired":
+        return {
+          status: 400,
+          message:
+            "At least one(1) of the following fields is required: 'description' "
+        };
+      case "aliasNotFound":
+        return {
+          status: 404,
+          message: "Allergen alias with provided ID is not found"
         };
 
       default:
