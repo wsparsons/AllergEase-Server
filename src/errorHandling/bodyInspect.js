@@ -11,11 +11,11 @@ function isValidUserLogin({ email, password }) {
 }
 
 function isValidAllergenCreate({ allergy }) {
-  if (!allergy) throw new Error("allergenFieldRequired");
+  if (!allergy) throw new Error("allergenAllergyRequired");
 }
 
 function isValidAllergenUpdate({ allergy }) {
-  if (!allergy) throw new Error("allergenFieldRequired");
+  if (!allergy) throw new Error("allergenAllergyRequired");
 }
 
 function isValidProductCreate({ name, ndbno, barcode, ingredients, manufacturer, image }) {
@@ -31,11 +31,21 @@ function isValidProductUpdate({ name, ndbno, barcode, ingredients, manufacturer,
   if (!name && !ndbno && !barcode && !ingredients && !manufacturer && !image) throw new Error("productFieldRequired");
 }
 
+function isValidAliasCreate({ description }) {
+  if(!description) throw new Error("aliasDescriptionRequired")
+}
+
+function isValidAliasUpdate ({ description }) {
+  if(!description) throw new Error("aliasDescriptionRequired")
+}
+
 module.exports = {
   isValidUserCreate,
   isValidUserLogin,
   isValidAllergenCreate,
   isValidAllergenUpdate,
   isValidProductCreate,
-  isValidProductUpdate
+  isValidProductUpdate,
+  isValidAliasCreate,
+  isValidAliasUpdate
 };
