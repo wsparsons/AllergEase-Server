@@ -12,7 +12,7 @@ Please send the developer a message for details on the code of conduct, and the 
 
 ## Author
 
-* **Wendy Parsons** - *Initial work* - [mrkpvlvski](https://github.com/wsparsons)
+* **Wendy Parsons** - *Initial work* - [wsparsons](https://github.com/wsparsons)
 
 ## License
 

@@ -32,22 +32,22 @@ async function isAuthorized(req, res, next) {
     }
     const token = parseToken(authorization);
     const userId = token.sub.id;
-
-    const listId = req.params.listId;
-    const list = await db("lists")
-      .where({ id: listId })
-      .first();
-    if (list.user_id !== userId) {
-      return next("unauthorizedAccess");
-    }
-
+    
     const userAllergenId = req.params.userAllergenId;
-    const userAllergen = await db("user_allergen")
-      .where({ id: userAllergenId })
-      .first();
+    const userAllergen = await db("user_allergen").where({
+      id: userAllergenId
+    });
+
     if (userAllergen.user_id !== userId) {
       return next("unauthorizedAccess");
     }
+
+    // const listId = req.params.listId;
+    // const list = await db("lists").where({ id: listId });
+
+    // if (list.user_id !== userId) {
+    //   return next("unauthorizedAccess");
+    // }
 
     next();
   } catch (err) {
