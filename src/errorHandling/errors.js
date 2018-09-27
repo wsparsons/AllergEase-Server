@@ -109,6 +109,18 @@ function processErrorMessage(err) {
           status: 404,
           message: "Allergen alias with provided ID is not found"
         };
+      case "userAllergenRequired":
+      return {
+        status: 400,
+        message:
+          "At least one(1) of the following fields is required: 'user_id', 'allergen_id' "
+      };
+      case "userAllergenNotFound":
+      return {
+        status: 400,
+        message:
+          "User Allergen with provided ID is not found"
+      };
 
       default:
         return {
