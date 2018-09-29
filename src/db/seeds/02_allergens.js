@@ -12,9 +12,7 @@ exports.seed = function(knex, Promise) {
         { id: 3, allergy: "milk" },
         { id: 4, allergy: "egg" },
         { id: 5, allergy: "soy" },
-        { id: 6, allergy: "wheat" },
-        { id: 7, allergy: "fish" },
-        { id: 8, allergy: "crustacean shellfish" }
+        { id: 6, allergy: "wheat" }
       ]);
     })
     .then(() => {
