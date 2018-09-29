@@ -10,8 +10,18 @@ async function findProductValence(req, res, next) {
   } catch (err) {
     next(err);
   }
+} 
+
+async function findUSDABarcode(req, res, next) {
+  try {
+    const response = await productsModel.findUSDAProduct(req.body);
+    res.status(201).json({ response });
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = {
-  findProductValence
+  findProductValence,
+  findUSDABarcode
 }

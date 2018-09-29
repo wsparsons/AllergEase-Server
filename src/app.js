@@ -17,7 +17,7 @@ app.use("/api/users", require("./routes/user_allergen"));
 app.use("/api/allergens", require("./routes/allergens"));
 app.use("/api/allergens/:allergenId/aliases", require("./routes/aliases"));
 app.use("/api/products", require("./routes/products"));
-app.use("/api/users/:userId/valence", require('./routes/lists'))
+app.use("/api/users/:userId/product", require('./routes/lists'))
 
 // DEFAULT ROUTES
 app.use((req, res) => {

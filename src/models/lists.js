@@ -1,3 +1,4 @@
+const axios = require('axios')
 const productsModel = require("./products");
 const userAllergenModel = require("./user_allergen");
 
@@ -53,6 +54,21 @@ async function findProductValence(userId, body) {
   return foundValence;
 }
 
+async function findUSDABarcode({barcode}) {
+  if(!Number.isInteger(barcode) || !barcode) return Promise.reject(new Error('barcodeRequired'))
+
+  let usdaBarcodeRequest = await axios.get(`${process.env.USDA_URL}&q=${barcode}`)
+
+  if(!usdaBarcodeRequest.data.list){
+    return Promise.reject(new Error('usdaProductNotFound'))
+  }
+
+  let usdaNdbnoRequest = usdaBarcodeRequest.data.list.item[0].ndbno
+  
+  let usda
+}
+
 module.exports = {
-  findProductValence
+  findProductValence,
+  findUSDABarcode
 };
