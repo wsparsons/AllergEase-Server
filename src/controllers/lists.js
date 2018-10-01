@@ -12,24 +12,6 @@ async function findProductValence(req, res, next) {
   }
 }
 
-// async function findUSDABarcode(req, res, next) {
-//   try {
-//     const response = await productsModel.findUSDAProduct(req.body);
-//     res.status(201).json({ response });
-//   } catch (err) {
-//     next(err);
-//   }
-// }
-
-// async function findUSDAProduct(req, res, next) {
-//   try {
-//     const response = await productsModel.findUSDAProduct(req.body);
-//     res.status(201).json({ response });
-//   } catch (err) {
-//     next(err);
-//   }
-// }
-
 module.exports = {
   findProductValence
 };
