@@ -1,5 +1,5 @@
 const axios = require("axios");
-const productsModel = require("./products");
+const productsModel = require('./products')
 const userAllergenModel = require("./user_allergen");
 
 const splitString = string => {
@@ -65,7 +65,6 @@ async function findProductValence(userId, body) {
     "Ocp-Apim-Subscription-Key": bingSubscriptionKey
   }});
 
-  
   let bingImageThumbnailUrl = bingImageSearch.data.value[0].thumbnailUrl
   
   console.log(bingImageThumbnailUrl);
@@ -83,7 +82,7 @@ async function findProductValence(userId, body) {
   };
 
   let product = await productsModel.createProduct(foundProduct);
-  let arrayOfIngredients = await splitString(product[0].ingredients);
+  let arrayOfIngredients = await splitString(foundProduct.ingredients);
 
   let userAllergy = await userAllergenModel.getAllUserAllergens(userId);
   let userArrayAllergy = await arrayOfAllergies(userAllergy);
