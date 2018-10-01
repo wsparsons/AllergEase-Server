@@ -7,8 +7,6 @@ router.get("/:productId", productsController.findProduct);
 
 router.post("/", productsController.createProduct);
 
-router.post('/usda', productsController.findUSDAProduct)
-
 router.patch("/:productId", productsController.updateProduct);
 
 router.delete("/:productId", productsController.deleteProduct);

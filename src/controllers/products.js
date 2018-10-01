@@ -28,15 +28,6 @@ async function createProduct(req, res, next) {
   }
 }
 
-async function findUSDAProduct(req, res, next) {
-  try {
-    const response = await productsModel.findUSDAProduct(req.body);
-    res.status(201).json({ response });
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function updateProduct(req, res, next) {
   try {
     const id = parseInt(req.params.productId);
@@ -61,7 +52,6 @@ module.exports = {
   getAllProducts,
   findProduct,
   createProduct,
-  findUSDAProduct,
   updateProduct,
   deleteProduct
 };

@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require("axios");
 const db = require("../db");
 const {
   isValidProductCreate,
@@ -45,38 +45,49 @@ async function createProduct(body) {
     .returning(["*"]);
 }
 
-async function findUSDAProduct({barcode}){
-  if(!Number.isInteger(barcode) || !barcode) return Promise.reject(new Error('barcodeRequired'))
+async function findUSDAProduct({ barcode }) {
+  if (!Number.isInteger(barcode) || !barcode)
+    return Promise.reject(new Error("barcodeRequired"));
 
-  let usdaBarcodeRequest = await axios.get(`${process.env.USDA_URL_SEARCH}${barcode}`)
+  let usdaBarcodeRequest = await axios.get(
+    `${process.env.USDA_URL_SEARCH}${barcode}`
+  );
 
-  if(!usdaBarcodeRequest.data.list){
-    return Promise.reject(new Error('usdaProductNotFound'))
-  } 
-  
-  // console.log(true, usdaBarcodeRequest.data.list.item[0].ndbno)
+  if (!usdaBarcodeRequest.data.list) {
+    return Promise.reject(new Error("usdaProductNotFound"));
+  }
 
-  let usdaNdbo = usdaBarcodeRequest.data.list.item[0].ndbno
-  
+  let bingProductName = usdaBarcodeRequest.data.list.item[0].name;
+  let bingProductManu = usdaBarcodeRequest.data.list.item[0].manu;
+  let bingSearchName = `${bingProductName} ${bingProductManu}`
 
-  let usdaNdbnoRequest = await axios.get(`${process.env.USDA_URL_NDBNO}${usdaNdbo}`)
+  // console.log(true, usdaBarcodeRequest.data.list.item[0])
+
+  let usdaNdbno = usdaBarcodeRequest.data.list.item[0].ndbno;
+
+  let usdaNdbnoRequest = await axios.get(
+    `${process.env.USDA_URL_NDBNO}${usdaNdbno}`
+  );
 
   // console.log(usdaNdbnoRequest.data.foods[0].food.ing.desc)
 
-  let foodObject = usdaNdbnoRequest.data.foods[0].food
-  let foodDesc = foodObject.desc
-  let foodNdbno = foodDesc.ndbno
-  let foodName = foodDesc.name
-  let foodManu = foodDesc.manu
-  let foodIng = foodObject.ing.desc
+  let foodObject = usdaNdbnoRequest.data.foods[0].food;
+  let foodDesc = foodObject.desc;
+  let foodNdbno = foodDesc.ndbno;
+  let foodName = foodDesc.name;
+  let foodManu = foodDesc.manu;
+  let foodIng = foodObject.ing.desc;
 
-  console.log({ name: foodName, ndbno: foodNdbno, barcode: barcode, ingredients: foodIng, manufacturer: foodManu})
-  
+  console.log({
+    name: foodName,
+    ndbno: foodNdbno,
+    barcode: barcode,
+    ingredients: foodIng,
+    manufacturer: foodManu
+  });
 
   // return usdaRequest
 }
-
-
 
 async function updateProduct(id, body) {
   isValidProductUpdate(body);
@@ -121,7 +132,7 @@ module.exports = {
   getAllProducts,
   findProduct,
   createProduct,
-  findUSDAProduct,
+  // findUSDAProduct,
   updateProduct,
   deleteProduct
 };
