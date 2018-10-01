@@ -121,6 +121,18 @@ function processErrorMessage(err) {
         message:
           "User Allergen with provided ID is not found"
       };
+      case "barcodeRequired":
+      return {
+        status: 400,
+        message:
+          "Product barcode is required"
+      };
+      case "usdaProductNotFound":
+      return {
+        status: 400,
+        message:
+          "USDA product is not found"
+      };
 
       default:
         return {
