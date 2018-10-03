@@ -5,7 +5,7 @@ router.get("/", userAllergenController.getAllUserAllergens);
 
 router.get("/:userAllergenId", userAllergenController.findUserAllergen);
 
-router.post("/", userAllergenController.createUserAllergen);
+router.post("/:userAllergenId", userAllergenController.createUserAllergen);
 
 router.delete("/:userAllergenId", userAllergenController.deleteUserAllergen);
 

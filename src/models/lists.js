@@ -58,16 +58,14 @@ async function findProductValence(userId, body) {
 
   let bingProductName = usdaBarcodeRequest.data.list.item[0].name;
   let bingProductManu = usdaBarcodeRequest.data.list.item[0].manu;
-  let bingSearchName = `${bingProductManu} ${bingProductName}`;
+  let bingSearchName = `${bingProductName}`;
   let bingSubscriptionKey = `${process.env.BING_KEY}`;
 
   let bingImageSearch = await axios.get(`https://api.cognitive.microsoft.com/bing/v7.0/images/search?q=${bingSearchName}&count=5&offset=0&mkt=en-us&safeSearch=Strict`, {headers: {
     "Ocp-Apim-Subscription-Key": bingSubscriptionKey
   }});
-
   let bingImageThumbnailUrl = bingImageSearch.data.value[0].thumbnailUrl
   
-  console.log(bingImageThumbnailUrl);
 
   let productObject = usdaNdbnoRequest.data.foods[0].food;
   let productDesc = productObject.desc;
@@ -91,7 +89,7 @@ async function findProductValence(userId, body) {
     userArrayAllergy.includes(ele)
   );
 
-  let response = { valence: foundValence };
+  let response = { valence: foundValence, product: foundProduct };
 
   return response;
 }

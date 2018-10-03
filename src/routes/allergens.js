@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const allergensController = require("../controllers/allergens");
 
-router.get("/", allergensController.getAllAllergens);
+// router.get("/", allergensController.getAllAllergens);
 
-router.get("/:allergenId", allergensController.findAllergen);
+// router.get("/:allergenId", allergensController.findAllergen);
 
-// router.get("/", allergensController.getAllAllergensAliases);
+router.get("/", allergensController.getAllAllergensAliases);
 
-// router.get("/:allergenId", allergensController.findAllergenAliases);
+router.get("/:allergenId", allergensController.findAllergenAliases);
 
 router.post("/", allergensController.createAllergen);
 
