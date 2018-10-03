@@ -19,9 +19,11 @@ async function findUserAllergen(req, res, next) {
     const userId = parseInt(req.params.userId);
     const userAllergenId = parseInt(req.params.userAllergenId);
 
-    
-    const response = await userAllergenModel.findUserAllergen( userId, userAllergenId);
-    
+    const response = await userAllergenModel.findUserAllergen(
+      userId,
+      userAllergenId
+    );
+
     res.status(201).json({ response });
   } catch (err) {
     next(err);
@@ -34,10 +36,11 @@ async function createUserAllergen(req, res, next) {
     // const userId = token.sub.id
 
     const userId = parseInt(req.params.userId);
+    const userAllergenId = parseInt(req.params.userAllergenId);
 
     const response = await userAllergenModel.createUserAllergen({
-      ...req.body,
-      user_id: userId
+      user_id: userId,
+      allergen_id: userAllergenId
     });
 
     res.status(201).json({ response });
@@ -50,8 +53,11 @@ async function deleteUserAllergen(req, res, next) {
   try {
     const userId = parseInt(req.params.userId);
     const userAllergenId = parseInt(req.params.userAllergenId);
-    const response = await userAllergenModel.deleteUserAllergen(userId, userAllergenId);
-    console.log(response)
+    const response = await userAllergenModel.deleteUserAllergen(
+      userId,
+      userAllergenId
+    );
+    console.log(response);
 
     res.status(202).json({ response });
   } catch (err) {

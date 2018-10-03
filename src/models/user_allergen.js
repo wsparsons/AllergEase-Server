@@ -64,6 +64,13 @@ async function createUserAllergen(body) {
 
 async function deleteUserAllergen(userId, userAllergenId) {
   if (
+    !user_id ||
+    typeof user_id !== "number" ||
+    !Number.isFinite(user_id) ||
+    !Number.isInteger(user_id)
+  )
+    return Promise.reject(new Error("unauthorizedAccess"));
+  if (
     !Number.isInteger(userAllergenId) ||
     userAllergenId < 0 ||
     !userAllergenId
