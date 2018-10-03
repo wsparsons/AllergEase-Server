@@ -29,11 +29,18 @@ async function login({ email, password }) {
   const isValid = await promisify(bcrypt.compare)(password, user.password);
 
   if (!isValid) throw new Error("userInfoInvalid");
-
   return user;
+}
+
+async function verify(id){
+  const [user] = await db("users").where({ id });
+  if (!user) throw new Error("userInfoInvalid");
+
+  return user
 }
 
 module.exports = {
   signup,
-  login
+  login,
+  verify
 };

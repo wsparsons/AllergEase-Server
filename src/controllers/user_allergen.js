@@ -48,8 +48,10 @@ async function createUserAllergen(req, res, next) {
 
 async function deleteUserAllergen(req, res, next) {
   try {
+    const userId = parseInt(req.params.userId);
     const userAllergenId = parseInt(req.params.userAllergenId);
-    const response = await userAllergenModel.deleteUserAllergen(userAllergenId);
+    const response = await userAllergenModel.deleteUserAllergen(userId, userAllergenId);
+    console.log(response)
 
     res.status(202).json({ response });
   } catch (err) {
