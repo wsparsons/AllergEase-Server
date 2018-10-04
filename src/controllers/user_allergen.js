@@ -17,11 +17,11 @@ async function findUserAllergen(req, res, next) {
     // const userId = token.sub.id
 
     const userId = parseInt(req.params.userId);
-    const userAllergenId = parseInt(req.params.userAllergenId);
+    const userAllergenListId = parseInt(req.params.userAllergenListId);
 
     const response = await userAllergenModel.findUserAllergen(
       userId,
-      userAllergenId
+      userAllergenListId
     );
 
     res.status(201).json({ response });
@@ -52,13 +52,12 @@ async function createUserAllergen(req, res, next) {
 async function deleteUserAllergen(req, res, next) {
   try {
     const userId = parseInt(req.params.userId);
-    const userAllergenId = parseInt(req.params.userAllergenId);
+    const userAllergenListId = parseInt(req.params.userAllergenListId);
     const response = await userAllergenModel.deleteUserAllergen(
       userId,
-      userAllergenId
+      userAllergenListId
     );
-    console.log(response);
-
+    
     res.status(202).json({ response });
   } catch (err) {
     next(err);

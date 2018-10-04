@@ -28,14 +28,14 @@ function getAllUserAllergens(userId) {
     });
 }
 
-function findUserAllergen(userId, userAllergenId) {
+function findUserAllergen(userId, userAllergenListId) {
   return db("user_allergen")
     .select("user_allergen.id AS id", "allergens.allergy", "user_allergen.*")
-    .where({ user_id: userId, "user_allergen.allergen_id": userAllergenId })
+    .where({ user_id: userId, "user_allergen.id": userAllergenListId })
     .join("allergens", "allergen_id", "allergens.id")
     .first()
     .then(userAllergen => {
-      if (!userAllergen) throw new Error("userAllergenNotFound");
+      if (!userAllergen) throw new Error("userAllergenListNotFound");
       return db("aliases")
         .where({ allergen_id: userAllergen.allergen_id })
         .then(aliases => {
@@ -62,24 +62,24 @@ async function createUserAllergen(body) {
     .returning(["*"]);
 }
 
-async function deleteUserAllergen(userId, userAllergenId) {
+async function deleteUserAllergen(userId, userAllergenListId) {
   if (
-    !user_id ||
-    typeof user_id !== "number" ||
-    !Number.isFinite(user_id) ||
-    !Number.isInteger(user_id)
+    !userId ||
+    typeof userId !== "number" ||
+    !Number.isFinite(userId) ||
+    !Number.isInteger(userId)
   )
     return Promise.reject(new Error("unauthorizedAccess"));
   if (
-    !Number.isInteger(userAllergenId) ||
-    userAllergenId < 0 ||
-    !userAllergenId
+    !Number.isInteger(userAllergenListId) ||
+    userAllergenListId < 0 ||
+    !userAllergenListId
   )
-    return Promise.reject(new Error("userAllergenRequired"));
+    return Promise.reject(new Error("userAllergenListNotFound"));
 
-  return await findUserAllergen(userId, userAllergenId).then(response => {
+  return await findUserAllergen(userId, userAllergenListId).then(response => {
     return db("user_allergen")
-      .where({ id: userAllergenId })
+      .where({ id: userAllergenListId })
       .del()
       .returning(["*"]);
   });
