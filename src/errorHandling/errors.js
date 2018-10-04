@@ -115,11 +115,11 @@ function processErrorMessage(err) {
         message:
           "At least one(1) of the following fields is required: 'user_id', 'allergen_id' "
       };
-      case "userAllergenNotFound":
+      case "userAllergenListNotFound":
       return {
         status: 400,
         message:
-          "User Allergen with provided ID is not found"
+          "User Allergen List with provided ID is not found"
       };
       case "barcodeRequired":
       return {

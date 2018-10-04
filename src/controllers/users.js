@@ -5,7 +5,8 @@ async function signup(req, res, next) {
   try {
     const response = await usersModel.signup(req.body);
     const token = auth.createToken(response.id);
-    res.status(201).json({ token });
+    const user = { userId: response.id, first_name: response.first_name }
+    res.status(201).json({ token, user });
   } catch (err) {
     next(err);
   }

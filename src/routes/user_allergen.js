@@ -3,10 +3,10 @@ const userAllergenController = require("../controllers/user_allergen");
 
 router.get("/", userAllergenController.getAllUserAllergens);
 
-router.get("/:userAllergenId", userAllergenController.findUserAllergen);
+router.get("/:userAllergenListId", userAllergenController.findUserAllergen);
 
 router.post("/:userAllergenId", userAllergenController.createUserAllergen);
 
-router.delete("/:userAllergenId", userAllergenController.deleteUserAllergen);
+router.delete("/:userAllergenListId", userAllergenController.deleteUserAllergen);
 
 module.exports = router;
