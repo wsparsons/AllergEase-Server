@@ -1,5 +1,5 @@
 const db = require("../db");
-const allergensModel = require("./allergens");
+const allergensModel = require("./02_allergens");
 const { isValidUserAllergenCreate } = require("../errorHandling/bodyInspect");
 
 function getAllUserAllergens(userId) {

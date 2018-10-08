@@ -13,8 +13,8 @@ app.use(require("body-parser").json());
 
 // ROUTES
 app.use("/api/users", require("./routes/01_users"));
+app.use("/api/allergens", require("./routes/02_allergens"));
 app.use("/api/users/:userId/allergens", require("./routes/user_allergen"));
-app.use("/api/allergens", require("./routes/allergens"));
 app.use("/api/allergens/:allergenId/aliases", require("./routes/aliases"));
 app.use("/api/products", require("./routes/products"));
 app.use("/api/users/:userId/barcode", require("./routes/lists"));
