@@ -1,12 +1,14 @@
 const router = require("express").Router({ mergeParams: true });
 const userAllergenController = require("../controllers/user_allergen");
+const auth = require('../lib/auth')
 
-router.get("/", userAllergenController.getAllUserAllergens);
 
-router.get("/:userAllergenListId", userAllergenController.findUserAllergen);
+router.get("/", auth.isLoggedIn, userAllergenController.getAllUserAllergens);
 
-router.post("/:userAllergenId", userAllergenController.createUserAllergen);
+router.get("/:userAllergenListId", auth.isLoggedIn, userAllergenController.findUserAllergen);
 
-router.delete("/:userAllergenListId", userAllergenController.deleteUserAllergen);
+router.post("/:userAllergenId", auth.isLoggedIn, userAllergenController.createUserAllergen);
+
+router.delete("/:userAllergenListId", auth.isAuthorized, userAllergenController.deleteUserAllergen);
 
 module.exports = router;
