@@ -51,6 +51,9 @@ async function createUserAllergen(req, res, next) {
 
 async function deleteUserAllergen(req, res, next) {
   try {
+    // const token = parseToken(req.headers.authorization)
+    // const userId = token.sub.id
+
     const userId = parseInt(req.params.userId);
     const userAllergenListId = parseInt(req.params.userAllergenListId);
     const response = await userAllergenModel.deleteUserAllergen(
