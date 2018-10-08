@@ -195,4 +195,61 @@ describe("/api/users", () => {
       });
     });
   });
+
+  describe("GET /api/users/verify", () => {
+    test("should return user info with valid token", async () => {
+      const user = {
+        email: "super@man.com",
+        password: "password"
+      };
+      const loginResponse = await request(app)
+        .post(`/api/users/login`)
+        .send(user);
+
+      const response = await request(app)
+        .get("/api/users/verify")
+        .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.user.userId).toBeTruthy();
+      expect(response.body.user.first_name).toBeTruthy();
+      expect(response.body.user).toBeInstanceOf(Object);
+      expect(response.body.user).toMatchObject({
+        userId: expect.any(Number),
+        first_name: expect.any(String)
+      });
+    });
+
+    test("should return an error if there is no token", async () => {
+      const response = await request(app).get("/api/users/verify");
+
+      expect(response.status).toBe(401);
+      expect(response.body.user).toBeFalsy();
+      expect(response.body).toMatchObject({
+        status: 401,
+        message: "You are not authorized to access this route"
+      });
+    });
+
+    test("should return an error if token is invalid", async () => {
+      const user = {
+        email: "super@man.com",
+        password: "password"
+      };
+      const loginResponse = await request(app)
+        .post(`/api/users/login`)
+        .send(user);
+
+      const response = await request(app)
+        .get("/api/users/verify")
+        .set("Authorization", `Bearer ${loginResponse.body.token}123`);
+
+      expect(response.status).toBe(401);
+      expect(response.body.user).toBeFalsy();
+      expect(response.body).toMatchObject({
+        status: 401,
+        message: "Session has expired. Please login again"
+      });
+    });
+  });
 });

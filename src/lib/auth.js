@@ -41,14 +41,7 @@ async function isAuthorized(req, res, next) {
     if (userAllergen.user_id !== userId) {
       return next("unauthorizedAccess");
     }
-
-    // const listId = req.params.listId;
-    // const list = await db("lists").where({ id: listId });
-
-    // if (list.user_id !== userId) {
-    //   return next("unauthorizedAccess");
-    // }
-
+    
     next();
   } catch (err) {
     next("sessionExpired");

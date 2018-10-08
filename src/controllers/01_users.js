@@ -1,4 +1,4 @@
-const usersModel = require("../models/users");
+const usersModel = require("../models/01_users");
 const auth = require("../lib/auth");
 
 async function signup(req, res, next) {

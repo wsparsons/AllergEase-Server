@@ -12,7 +12,7 @@ app.use(require("cors")());
 app.use(require("body-parser").json());
 
 // ROUTES
-app.use("/api/users", require("./routes/users"));
+app.use("/api/users", require("./routes/01_users"));
 app.use("/api/users/:userId/allergens", require("./routes/user_allergen"));
 app.use("/api/allergens", require("./routes/allergens"));
 app.use("/api/allergens/:allergenId/aliases", require("./routes/aliases"));
