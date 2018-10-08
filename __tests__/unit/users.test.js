@@ -43,7 +43,7 @@ describe("Users Model", () => {
       };
       await expect(usersModel.signup(newUser)).rejects.toMatchObject({
         message: "userExists"
-      })
+      });
     });
 
     test("should return an error if the first name is missing", async () => {
@@ -151,6 +151,32 @@ describe("Users Model", () => {
       };
 
       await expect(usersModel.login(user)).rejects.toMatchObject({
+        message: "userInfoInvalid"
+      });
+    });
+  });
+
+  describe("verify()", () => {
+    test("verify function is defined", () => {
+      expect(usersModel.verify).toBeDefined();
+    });
+
+    test("should verify a user id if user exists", async () => {
+      const id = 1;
+      const response = await usersModel.verify(id);
+      expect(response.id).toEqual(id);
+      expect(response).toMatchObject({
+        id: expect.any(Number),
+        first_name: expect.any(String),
+        last_name: expect.any(String),
+        email: expect.any(String),
+        password: expect.any(String)
+      });
+    });
+
+    test("should return an error if user id does not exist ", async () => {
+      const id = -1;
+      await expect(usersModel.verify(id)).rejects.toMatchObject({
         message: "userInfoInvalid"
       });
     });
