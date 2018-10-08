@@ -33,8 +33,10 @@ const arrayOfAllergies = allergens => {
   allergens.forEach(ele => {
     if (ele.allergy) {
       result.push(ele.allergy.toLowerCase());
+      result.push(`${ele.allergy}s`.toLowerCase());
     }
     ele.aliases.forEach(alias => result.push(alias.toLowerCase()));
+    ele.aliases.forEach(alias => result.push(`${alias}s`.toLowerCase()))
   });
 
   return result;
@@ -58,7 +60,7 @@ async function findProductValence(userId, body) {
 
   let bingProductName = usdaBarcodeRequest.data.list.item[0].name;
   let bingProductManu = usdaBarcodeRequest.data.list.item[0].manu;
-  let bingSearchName = `${bingProductName}`;
+  let bingSearchName = `${bingProductManu} ${bingProductName}`;
   let bingSubscriptionKey = `${process.env.BING_KEY}`;
 
   let bingImageSearch = await axios.get(`https://api.cognitive.microsoft.com/bing/v7.0/images/search?q=${bingSearchName}&count=5&offset=0&mkt=en-us&safeSearch=Strict`, {headers: {
