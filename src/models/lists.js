@@ -44,9 +44,10 @@ const arrayOfAllergies = allergens => {
 
 async function findProductValence(userId, body) {
   let { barcode } = body;
+  let usdaApiKey = `${process.env.USDA_API}`
 
   let usdaBarcodeRequest = await axios.get(
-    `${process.env.USDA_URL_SEARCH}${barcode}`
+    `https://api.nal.usda.gov/ndb/search/?format=json&api_key=${usdaApiKey}&q=${barcode}`
   );
 
   if (!usdaBarcodeRequest.data.list) {
@@ -55,7 +56,7 @@ async function findProductValence(userId, body) {
 
   let usdaNdbno = usdaBarcodeRequest.data.list.item[0].ndbno;
   let usdaNdbnoRequest = await axios.get(
-    `${process.env.USDA_URL_NDBNO}${usdaNdbno}`
+    `https://api.nal.usda.gov/ndb/V2/reports?type=f&format=json&api_key=${usdaApiKey}&ndbno=${usdaNdbno}`
   );
 
   let bingProductName = usdaBarcodeRequest.data.list.item[0].name;
