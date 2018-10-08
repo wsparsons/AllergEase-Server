@@ -33,10 +33,10 @@ async function isAuthorized(req, res, next) {
     const token = parseToken(authorization);
     const userId = token.sub.id;
     
-    const userAllergenId = req.params.userAllergenId;
+    const userAllergenListId = req.params.userAllergenListId;
     const userAllergen = await db("user_allergen").where({
-      id: userAllergenId
-    });
+      id: userAllergenListId
+    }).first()
 
     if (userAllergen.user_id !== userId) {
       return next("unauthorizedAccess");
