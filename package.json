@@ -10,7 +10,7 @@
     "reboot": "npm run knex migrate:rollback && npm run knex migrate:latest && npm run knex seed:run",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
-    "seed": "knex seed:run ",
+    "seed": "knex seed:run",
     "lint": "eslint __tests__/**",
     "test": "NODE_ENV=testing jest --runInBand --verbose __tests__/**/*.test.js",
     "coverage": "NODE_ENV=testing jest --runInBand --coverage --verbose __tests__/**/*.test.js",
