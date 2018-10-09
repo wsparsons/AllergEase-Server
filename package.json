@@ -21,15 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wsparsons/NutriScan-Server.git"
+    "url": "git+https://github.com/wsparsons/AllergEase-Server.git"
   },
   "keywords": [],
   "author": "Wendy Parsons",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wsparsons/NutriScan-Server/issues"
+    "url": "https://github.com/wsparsons/AllergEase-Server/issues"
   },
-  "homepage": "https://github.com/wsparsons/NutriScan-Server#readme",
+  "homepage": "https://github.com/wsparsons/AllergEase-Server#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",

@@ -1,5 +1,5 @@
-# NutriScan (Server)
-[![Build Status](https://travis-ci.org/wsparsons/NutriScan-Server.svg?branch=master)](https://travis-ci.org/wsparsons/NutriScan-Server)
+# AllergEase (Server)
+[![Build Status](https://travis-ci.org/wsparsons/AllergEase-Client.svg?branch=master)](https://travis-ci.org/wsparsons/AllergEase-Client)
 
 ## Database Structure
 
@@ -12,7 +12,7 @@ Please send the developer a message for details on the code of conduct, and the 
 
 ## Author
 
-* **Wendy Parsons** - *Initial work* - [wsparsons](https://github.com/wsparsons)
+* **Wendy Parsons** - [wsparsons](https://github.com/wsparsons)
 
 ## License
 

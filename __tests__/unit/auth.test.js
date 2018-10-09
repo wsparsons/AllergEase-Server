@@ -30,11 +30,5 @@ describe("Util: Auth", () => {
       expect(verify(actual, SECRET_KEY).id).toEqual(verify(token, SECRET_KEY).id)
     });
   });
-
-  // describe("isLoggedIn()", ()=> {
-  //   test("isLoggedIn function should exists", () => {
-  //     expect(isLoggedIn).toBeDefined()
-  //   })
-  // })
 });
 

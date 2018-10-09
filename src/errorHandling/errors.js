@@ -46,93 +46,21 @@ function processErrorMessage(err) {
           status: 404,
           message: "Allergen with provided ID is not found"
         };
-      case "allergenFieldRequired":
-        return {
-          status: 400,
-          message:
-            "At least one(1) of the following fields is required: 'allergy' "
-        };
-      case "productNotFound":
-        return {
-          status: 404,
-          message: "Product with provided ID is not found"
-        };
-      case "productFieldRequired":
-        return {
-          status: 400,
-          message:
-            "At least one(1) of the following fields is required: 'name', 'ndbno', 'barcode', 'ingredients', 'manufacturer', 'image' "
-        };
-      case "productNameRequired":
-        return {
-          status: 400,
-          message: "Product 'name' is required"
-        };
-      case "productNdbnoRequired":
-        return {
-          status: 400,
-          message: "Product 'ndbno' is required"
-        };
-      case "productBarcodeRequired":
-        return {
-          status: 400,
-          message: "Product 'barcode' is required"
-        };
-      case "productIngredientsRequired":
-        return {
-          status: 400,
-          message: "Product 'ingredients' is required"
-        };
-      case "productManufacturerRequired":
-        return {
-          status: 400,
-          message: "Product 'manufacturer' is required"
-        };
-      case "productImageRequired":
-        return {
-          status: 400,
-          message: "Product 'image' is required"
-        };
-      case "aliasDescriptionRequired":
-        return {
-          status: 400,
-          message: "Allergen alias 'description' is required"
-        };
-      case "aliasFieldRequired":
-        return {
-          status: 400,
-          message:
-            "At least one(1) of the following fields is required: 'description' "
-        };
-      case "aliasNotFound":
-        return {
-          status: 404,
-          message: "Allergen alias with provided ID is not found"
-        };
-      case "userAllergenRequired":
-      return {
-        status: 400,
-        message:
-          "At least one(1) of the following fields is required: 'user_id', 'allergen_id' "
-      };
       case "userAllergenListNotFound":
-      return {
-        status: 400,
-        message:
-          "User Allergen List with provided ID is not found"
-      };
+        return {
+          status: 400,
+          message: "User Allergen List with provided ID is not found"
+        };
       case "barcodeRequired":
-      return {
-        status: 400,
-        message:
-          "Product barcode is required"
-      };
+        return {
+          status: 400,
+          message: "Product barcode is required"
+        };
       case "usdaProductNotFound":
-      return {
-        status: 400,
-        message:
-          "USDA product is not found"
-      };
+        return {
+          status: 400,
+          message: "USDA product is not found"
+        };
 
       default:
         return {

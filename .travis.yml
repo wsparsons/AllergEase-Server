@@ -6,7 +6,7 @@ node_js:
   - "stable"
 
 before_script: 
-  - psql -c 'create database nutriscan_test;' -U postgres
+  - psql -c 'create database allergease_test;' -U postgres
 
 script:
   - npm run reboot
@@ -17,3 +17,10 @@ services:
 
 env:
   - NODE_ENV="testing"
+
+deploy:
+  provider: heroku
+  api_key: 
+    secure: 'bee269fd-8220-43f2-8009-236e598c81ff'
+  app:
+    master: allergease

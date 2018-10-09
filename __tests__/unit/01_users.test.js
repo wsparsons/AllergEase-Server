@@ -1,4 +1,4 @@
-const usersModel = require("../../src/models/users");
+const usersModel = require("../../src/models/01_users");
 const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 
