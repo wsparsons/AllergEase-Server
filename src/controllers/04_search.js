@@ -1,4 +1,4 @@
-const listsModel = require("../models/lists");
+const listsModel = require("../models/04_search");
 
 async function findProductValence(req, res, next) {
   try {

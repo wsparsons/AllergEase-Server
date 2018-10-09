@@ -1,5 +1,4 @@
 const axios = require("axios");
-const productsModel = require('./products')
 const userAllergenModel = require("./03_user_allergen");
 
 const splitString = string => {
@@ -36,15 +35,14 @@ const arrayOfAllergies = allergens => {
       result.push(`${ele.allergy}s`.toLowerCase());
     }
     ele.aliases.forEach(alias => result.push(alias.toLowerCase()));
-    ele.aliases.forEach(alias => result.push(`${alias}s`.toLowerCase()))
+    ele.aliases.forEach(alias => result.push(`${alias}s`.toLowerCase()));
   });
 
   return result;
 };
 
-async function findProductValence(userId, body) {
-  let { barcode } = body;
-  let usdaApiKey = `${process.env.USDA_API}`
+async function getUsdaListItem(barcode) {
+  let usdaApiKey = `${process.env.USDA_API}`;
 
   let usdaBarcodeRequest = await axios.get(
     `https://api.nal.usda.gov/ndb/search/?format=json&api_key=${usdaApiKey}&q=${barcode}`
@@ -54,42 +52,65 @@ async function findProductValence(userId, body) {
     return Promise.reject(new Error("usdaProductNotFound"));
   }
 
-  let usdaNdbno = usdaBarcodeRequest.data.list.item[0].ndbno;
+  let usdaListItem = usdaBarcodeRequest.data.list.item[0];
+
+  return usdaListItem;
+}
+
+async function findBingProductImage(productManufacturer, productName) {
+  let bingSubscriptionKey = `${process.env.BING_KEY}`;
+  let bingSearchName = `${productManufacturer} ${productName}`;
+  let bingImageSearch = await axios.get(
+    `https://api.cognitive.microsoft.com/bing/v7.0/images/search?q=${bingSearchName}&count=5&offset=0&mkt=en-us&safeSearch=Strict`,
+    {
+      headers: {
+        "Ocp-Apim-Subscription-Key": bingSubscriptionKey
+      }
+    }
+  );
+  let bingImageThumbnailUrl = bingImageSearch.data.value[0].thumbnailUrl;
+
+  return bingImageThumbnailUrl;
+}
+
+async function getUsdaItemInfo(usdaNdbno) {
+  let usdaApiKey = `${process.env.USDA_API}`;
+
   let usdaNdbnoRequest = await axios.get(
     `https://api.nal.usda.gov/ndb/V2/reports?type=f&format=json&api_key=${usdaApiKey}&ndbno=${usdaNdbno}`
   );
 
-  let bingProductName = usdaBarcodeRequest.data.list.item[0].name;
-  let bingProductManu = usdaBarcodeRequest.data.list.item[0].manu;
-  let bingSearchName = `${bingProductManu} ${bingProductName}`;
-  let bingSubscriptionKey = `${process.env.BING_KEY}`;
-
-  let bingImageSearch = await axios.get(`https://api.cognitive.microsoft.com/bing/v7.0/images/search?q=${bingSearchName}&count=5&offset=0&mkt=en-us&safeSearch=Strict`, {headers: {
-    "Ocp-Apim-Subscription-Key": bingSubscriptionKey
-  }});
-  let bingImageThumbnailUrl = bingImageSearch.data.value[0].thumbnailUrl
-  
-
   let productObject = usdaNdbnoRequest.data.foods[0].food;
-  let productDesc = productObject.desc;
+
+  return productObject;
+}
+
+async function findProductValence(userId, body) {
+  let { barcode } = body;
+  let usdaListItem = await getUsdaListItem(barcode);
+
+  let productManufacturer = usdaListItem.manu;
+  let productName = usdaListItem.name;
+  let bingImage = await findBingProductImage(productManufacturer, productName);
+
+  let productNdbno = usdaListItem.ndbno;
+  let productObject = await getUsdaItemInfo(productNdbno);
 
   let foundProduct = {
-    name: productDesc.name,
-    ndbno: productDesc.ndbno,
+    name: productObject.desc.name,
+    ndbno: productObject.desc.ndbno,
     barcode: barcode,
     ingredients: productObject.ing.desc,
-    manufacturer: productDesc.manu,
-    image: bingImageThumbnailUrl
+    manufacturer: productObject.desc.manu,
+    image: bingImage
   };
 
-  let product = await productsModel.createProduct(foundProduct);
   let arrayOfIngredients = await splitString(foundProduct.ingredients);
-
-  let userAllergy = await userAllergenModel.getAllUserAllergens(userId);
-  let userArrayAllergy = await arrayOfAllergies(userAllergy);
+  let userAllergens = await userAllergenModel.getAllUserAllergens(userId);
+  let userAllergensArray = await arrayOfAllergies(userAllergens);
 
   let foundValence = arrayOfIngredients.some(ele =>
-    userArrayAllergy.includes(ele)
+    userAllergensArray.includes(ele)
   );
 
   let response = { valence: foundValence, product: foundProduct };
