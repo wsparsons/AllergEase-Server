@@ -20,7 +20,7 @@ function isLoggedIn(req, res, next) {
     parseToken(req.headers.authorization);
     next();
   } catch (err) {
-    next("sessionExpired");
+    next({message: "sessionExpired"});
   }
 }
 
@@ -28,20 +28,23 @@ async function isAuthorized(req, res, next) {
   try {
     const authorization = req.headers.authorization;
     if (!authorization) {
-      return next("unauthorizedAccess");
+      return next({ message: "unauthorizedAccess" });
     }
     const token = parseToken(authorization);
     const userId = token.sub.id;
-    
+
     const userAllergenListId = req.params.userAllergenListId;
-    const userAllergen = await db("user_allergen").where({
-      id: userAllergenListId
-    }).first()
+
+    const userAllergen = await db("user_allergen")
+      .where({
+        id: userAllergenListId
+      })
+      .first();
 
     if (userAllergen.user_id !== userId) {
-      return next("unauthorizedAccess");
+      return next({ message: "unauthorizedAccess" });
     }
-    
+
     next();
   } catch (err) {
     next("sessionExpired");

@@ -1,6 +1,6 @@
 const axios = require("axios");
 const productsModel = require('./products')
-const userAllergenModel = require("./user_allergen");
+const userAllergenModel = require("./03_user_allergen");
 
 const splitString = string => {
   const customSplit = delimiter => (acc, ele) => [

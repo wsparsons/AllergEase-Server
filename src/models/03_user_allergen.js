@@ -1,6 +1,4 @@
 const db = require("../db");
-const allergensModel = require("./02_allergens");
-const { isValidUserAllergenCreate } = require("../errorHandling/bodyInspect");
 
 function getAllUserAllergens(userId) {
   return db("user_allergen")
@@ -12,15 +10,9 @@ function getAllUserAllergens(userId) {
         return db("aliases")
           .where({ allergen_id: allergen.allergen_id })
           .then(aliases => {
-            //// return an array of aliases description strings
             allergen.aliases = aliases.map(alias => {
               return alias.description;
             });
-
-            //// return an array of aliases of objects with ids and descriptions
-            // allergen.aliases = aliases.map(alias => {
-            //   return { description: alias.description, id: alias.id };
-            // });
             return allergen;
           });
       });
@@ -47,15 +39,26 @@ function findUserAllergen(userId, userAllergenListId) {
     });
 }
 
-async function createUserAllergen(body) {
-  isValidUserAllergenCreate(body);
-  const fields = ["user_id", "allergen_id"];
+async function createUserAllergen(userId, userAllergenId) {
+  if (
+    !userId ||
+    typeof userId !== "number" ||
+    !Number.isFinite(userId) ||
+    !Number.isInteger(userId)
+  )
+    return Promise.reject(new Error("unauthorizedAccess"));
 
-  if (!fields.every(field => body[field]))
-    return Promise.reject(new Error("userAllergenRequired"));
+  if (
+    !Number.isInteger(userAllergenId) ||
+    userAllergenId < 0 ||
+    !userAllergenId
+  )
+    return Promise.reject(new Error("allergenNotFound"));
 
-  if (!Object.keys(body).every(field => fields.includes(field)))
-    return Promise.reject(new Error("userAllergenRequired"));
+  const body = {
+    user_id: userId,
+    allergen_id: userAllergenId
+  };
 
   return await db("user_allergen")
     .insert(body)
