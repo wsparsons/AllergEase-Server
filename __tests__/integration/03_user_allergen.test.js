@@ -97,6 +97,33 @@ describe("/api/users/:userId/allergens", () => {
         message: "Session has expired. Please login again"
       });
     });
+
+    test("should return an error if allergen id is invalid or misssing", async () => {
+      const user = {
+        email: "super@man.com",
+        password: "password"
+      };
+      const loginResponse = await request(app)
+        .post(`/api/users/login`)
+        .send(user);
+
+      let userAllergenId = -1;
+
+      const response = await request(app)
+        .post(
+          `/api/users/${
+            loginResponse.body.user.userId
+          }/allergens/${userAllergenId}`
+        )
+        .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+      expect(response.status).toEqual(404);
+      expect(response.body.user).toBeFalsy();
+      expect(response.body).toMatchObject({
+        status: 404,
+        message: "Allergen with provided ID is not found"
+      });
+    });
   });
 
   describe("DELETE /api/users/:userId/allergens/:userAllergenListId", () => {
@@ -129,7 +156,7 @@ describe("/api/users/:userId/allergens", () => {
       });
     });
 
-    test("should return an error if that user is not authorized to delete the list", async () => {
+    test("should return an error if user is not authorized to delete the list", async () => {
       const user = {
         email: "super@man.com",
         password: "password"
@@ -153,6 +180,33 @@ describe("/api/users/:userId/allergens", () => {
       expect(response.body).toMatchObject({
         status: 401,
         message: "You are not authorized to access this route"
+      });
+    });
+
+    test("should return an error if list id is invalid or missing", async () => {
+      const user = {
+        email: "super@man.com",
+        password: "password"
+      };
+      const loginResponse = await request(app)
+        .post(`/api/users/login`)
+        .send(user);
+
+      let userAllergenListId = -1;
+
+      const response = await request(app)
+        .delete(
+          `/api/users/${
+            loginResponse.body.user.userId
+          }/allergens/${userAllergenListId}`
+        )
+        .set("Authorization", `Bearer ${loginResponse.body.token}`);
+
+      expect(response.status).toEqual(401);
+      expect(response.body.user).toBeFalsy();
+      expect(response.body).toMatchObject({
+        status: 401,
+        message: "Session has expired. Please login again"
       });
     });
 

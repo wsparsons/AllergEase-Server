@@ -43,15 +43,12 @@ const arrayOfAllergies = allergens => {
 
 async function getUsdaListItem(barcode) {
   let usdaApiKey = `${process.env.USDA_API}`;
-
   let usdaBarcodeRequest = await axios.get(
     `https://api.nal.usda.gov/ndb/search/?format=json&api_key=${usdaApiKey}&q=${barcode}`
   );
-
   if (!usdaBarcodeRequest.data.list) {
     return Promise.reject(new Error("usdaProductNotFound"));
   }
-
   let usdaListItem = usdaBarcodeRequest.data.list.item[0];
 
   return usdaListItem;
@@ -75,11 +72,9 @@ async function findBingProductImage(productManufacturer, productName) {
 
 async function getUsdaItemInfo(usdaNdbno) {
   let usdaApiKey = `${process.env.USDA_API}`;
-
   let usdaNdbnoRequest = await axios.get(
     `https://api.nal.usda.gov/ndb/V2/reports?type=f&format=json&api_key=${usdaApiKey}&ndbno=${usdaNdbno}`
   );
-
   let productObject = usdaNdbnoRequest.data.foods[0].food;
 
   return productObject;
@@ -87,6 +82,17 @@ async function getUsdaItemInfo(usdaNdbno) {
 
 async function findProductValence(userId, body) {
   let { barcode } = body;
+
+  if (
+    !userId ||
+    typeof userId !== "number" ||
+    !Number.isFinite(userId) ||
+    !Number.isInteger(userId)
+  )
+    return Promise.reject(new Error("unauthorizedAccess"));
+
+  if (!barcode) return Promise.reject(new Error("barcodeRequired"));
+
   let usdaListItem = await getUsdaListItem(barcode);
 
   let productManufacturer = usdaListItem.manu;

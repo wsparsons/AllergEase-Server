@@ -75,6 +75,8 @@ async function deleteUserAllergen(userId, userAllergenListId) {
     return Promise.reject(new Error("unauthorizedAccess"));
   if (
     !Number.isInteger(userAllergenListId) ||
+    !Number.isFinite(userAllergenListId) ||
+    typeof userAllergenListId !== "number" ||
     userAllergenListId < 0 ||
     !userAllergenListId
   )

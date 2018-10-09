@@ -45,30 +45,22 @@ function processErrorMessage(err) {
         return {
           status: 404,
           message: "Allergen with provided ID is not found"
-        }; 
-      case "productNotFound":
-        return {
-          status: 404,
-          message: "Product with provided ID is not found"
         };
       case "userAllergenListNotFound":
-      return {
-        status: 400,
-        message:
-          "User Allergen List with provided ID is not found"
-      };
+        return {
+          status: 400,
+          message: "User Allergen List with provided ID is not found"
+        };
       case "barcodeRequired":
-      return {
-        status: 400,
-        message:
-          "Product barcode is required"
-      };
+        return {
+          status: 400,
+          message: "Product barcode is required"
+        };
       case "usdaProductNotFound":
-      return {
-        status: 400,
-        message:
-          "USDA product is not found"
-      };
+        return {
+          status: 400,
+          message: "USDA product is not found"
+        };
 
       default:
         return {

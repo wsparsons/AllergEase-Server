@@ -47,7 +47,7 @@ async function isAuthorized(req, res, next) {
 
     next();
   } catch (err) {
-    next("sessionExpired");
+    next({message: "sessionExpired"});
   }
 }
 
