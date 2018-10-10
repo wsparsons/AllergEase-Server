@@ -38,7 +38,7 @@ This project has been deployed on Heroku at:
 * [Knex.js](https://knexjs.com/) - SQL query builder for Postgress
 
 ## CONTRIBUTING
--Please send the developer a message for details on the code of conduct, and the process for submitting pull requests.
+Please send the developer a message for details on the code of conduct, and the process for submitting pull requests.
 
 ## AUTHOR
 **Wendy Parsons** - [wsparsons](https://github.com/wsparsons)
