@@ -38,6 +38,8 @@ This project has been deployed on Heroku at:
 * [Knex.js](https://knexjs.com/) - SQL query builder for Postgress
 * [Jest](https://jestjs.io/) - A Javascript testing framework
 * [Supertest](https://www.npmjs.com/package/supertest) - A library for testing node.js HTTP servers using a fluent API
+* [Travis CI](https://travis-ci.org/) - A continuous integration service used to build and test projects 
+
 
 ## CONTRIBUTING
 Please send the developer a message for details on the code of conduct, and the process for submitting pull requests.
