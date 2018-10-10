@@ -32,10 +32,12 @@ This project has been deployed on Heroku at:
 * https://allergease.herokuapp.com
 
 ## BUILD WITH
-* [postgreSQL](https://www.postgresql.org/) - an object-relational database management system
+* [postgreSQL](https://www.postgresql.org/) - An object-relational database management system
 * [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 * [Express.js](https://expressjs.com/) - A Node.js web application framework that provides a robust set of features for web and mobile applications
 * [Knex.js](https://knexjs.com/) - SQL query builder for Postgress
+* [Jest](https://jestjs.io/) - A Javascript testing framework
+* [Supertest](https://www.npmjs.com/package/supertest) - A library for testing node.js HTTP servers using a fluent API
 
 ## CONTRIBUTING
 Please send the developer a message for details on the code of conduct, and the process for submitting pull requests.
