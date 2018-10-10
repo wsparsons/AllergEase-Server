@@ -10,24 +10,25 @@ Instead of laboring over long ingredient lists, trust Allergease to keep your lo
 
 It makes shopping easier by supplementing a shopper’s perusal of product ingredients with a database that provides immediate certainty.
 
-## GETTING STARTED
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-## THE FRONTEND
-The frontend can be found at: 
-* https://github.com/wsparsons/AllergEase-Client
-
 ## DATABASE STRUCTURE 
 ![](./images/AllergEase_ERD.png)
 
-## SETUP
+## GETTING STARTED
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### THE FRONTEND
+The frontend can be found at: 
+* https://github.com/wsparsons/AllergEase-Client
+
+
+### SETUP
 * Fork and clone this repository
 * `npm install`
 * `createdb allergease_dev`
 * `npm run knex migrate:latest`
 * `npm run knex seed:run`
 
-## DEPLOYMENT
+### DEPLOYMENT
 This project has been deployed on Heroku at: 
 * https://allergease.herokuapp.com
 
@@ -39,7 +40,6 @@ This project has been deployed on Heroku at:
 * [Jest](https://jestjs.io/) - A Javascript testing framework
 * [Supertest](https://www.npmjs.com/package/supertest) - A library for testing node.js HTTP servers using a fluent API
 * [Travis CI](https://travis-ci.org/) - A continuous integration service used to build and test projects 
-
 
 ## CONTRIBUTING
 Please send the developer a message for details on the code of conduct, and the process for submitting pull requests.
