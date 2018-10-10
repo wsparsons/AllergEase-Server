@@ -1,7 +1,7 @@
 {
   "name": "AllergEase-Server",
   "version": "1.0.0",
-  "description": "",
+  "description": "An application that helps you spot allergens with ease.",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
