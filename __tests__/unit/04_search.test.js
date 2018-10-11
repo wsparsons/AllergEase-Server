@@ -14,7 +14,8 @@ describe("Search Model", () => {
       expect(response).toBeInstanceOf(Object);
       expect(response).toMatchObject({
         valence: expect.any(Boolean),
-        product: expect.any(Object)
+        product: expect.any(Object),
+        found: expect.any(String)
       });
       expect(response.product).toMatchObject({
         name: expect.any(String),

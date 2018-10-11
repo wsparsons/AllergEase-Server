@@ -119,7 +119,17 @@ async function findProductValence(userId, body) {
     userAllergensArray.includes(ele)
   );
 
-  let response = { valence: foundValence, product: foundProduct };
+  let foundAllergensArray = arrayOfIngredients.filter(ingredient =>
+    userAllergensArray.includes(ingredient)
+  );
+
+  let foundAllergensString = foundAllergensArray.join(", ");
+
+  let response = {
+    valence: foundValence,
+    product: foundProduct,
+    found: foundAllergensString
+  };
 
   return response;
 }
