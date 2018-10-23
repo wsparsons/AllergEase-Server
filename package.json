@@ -14,7 +14,8 @@
     "lint": "eslint __tests__/**",
     "test": "NODE_ENV=testing jest --runInBand --verbose __tests__/**/*.test.js",
     "coverage": "NODE_ENV=testing jest --runInBand --coverage --verbose __tests__/**/*.test.js",
-    "test:watch": "NODE_ENV=testing jest --watchAll --runInBand --coverage --verbose __tests__/**/*.test.js"
+    "test:watch": "NODE_ENV=testing jest --watchAll --runInBand --coverage --verbose __tests__/**/*.test.js",
+    "keepAwake": "node awake.js"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./__tests__/support.js"
