@@ -1,3 +1,3 @@
-const allergensModel = require('./src/model/02_allergens')
+const allergensModel = require('./src/models/02_allergens')
 
 allergensModel.getAllAllergensAliases()
