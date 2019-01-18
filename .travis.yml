@@ -13,7 +13,7 @@ script:
   - npm run coverage
 
 services:
-  -postgresql 
+  - postgresql 
 
 env:
   - NODE_ENV="testing"
