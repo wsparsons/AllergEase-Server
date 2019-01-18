@@ -8,10 +8,7 @@ node_js:
 before_script: 
   - psql -c 'create database allergease_test;' -U postgres
 
-cache: npm
-
 script:
-  - npm install
   - npm run reboot
   - npm run coverage
 
