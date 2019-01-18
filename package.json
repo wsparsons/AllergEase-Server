@@ -2,7 +2,7 @@
   "name": "AllergEase-Server",
   "version": "1.0.0",
   "description": "An application that helps you spot allergens with ease.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
@@ -35,20 +35,20 @@
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "jsonwebtoken": "^8.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.4",
-    "npm": "^6.4.1",
+    "nodemon": "^1.18.9",
+    "npm": "^6.6.0",
     "path": "^0.12.7",
-    "pg": "^7.4.3"
+    "pg": "^7.8.0"
   },
   "devDependencies": {
-    "eslint-plugin-jest": "^21.22.0",
+    "eslint-plugin-jest": "^21.27.2",
     "jest": "^23.6.0",
-    "supertest": "^3.3.0"
+    "supertest": "^3.4.1"
   }
 }
