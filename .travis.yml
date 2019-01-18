@@ -3,13 +3,16 @@ sude: false
 language: node_js
 
 node_js:
-  - "stable"
+  - "node"
 
 before_script: 
   - psql -c 'create database allergease_test;' -U postgres
 
+install: npm install 
+
+cache: npm
+
 script:
-  - npm install
   - npm run reboot
   - npm run coverage
 
