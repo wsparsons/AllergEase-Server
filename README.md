@@ -1,5 +1,5 @@
 # AllergEase (Server)
-[![Build Status](https://travis-ci.org/wsparsons/AllergEase-Client.svg?branch=master)](https://travis-ci.org/wsparsons/AllergEase-Client)
+[![Build Status](https://travis-ci.org/wsparsons/AllergEase-Server.svg?branch=master)](https://travis-ci.org/wsparsons/AllergEase-Server)
 
 ## ABOUT THIS APPLICATION
 AllergEase is a full-stack mobile responsive React Redux application that helps you spot allergens with ease. 
