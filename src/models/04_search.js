@@ -65,7 +65,8 @@ async function findBingProductImage(productManufacturer, productName) {
       }
     }
   );
-  let bingImageThumbnailUrl = bingImageSearch.data.value[0].thumbnailUrl;
+  let bingImageThumbnailUrl = bingImageSearch.data.value[0].thumbnailUrl;;
+  
 
   return bingImageThumbnailUrl;
 }
@@ -76,7 +77,7 @@ async function getUsdaItemInfo(usdaNdbno) {
     `https://api.nal.usda.gov/ndb/V2/reports?type=f&format=json&api_key=${usdaApiKey}&ndbno=${usdaNdbno}`
   );
   let productObject = usdaNdbnoRequest.data.foods[0].food;
-
+  
   return productObject;
 }
 
@@ -94,11 +95,11 @@ async function findProductValence(userId, body) {
   if (!barcode) return Promise.reject(new Error("barcodeRequired"));
 
   let usdaListItem = await getUsdaListItem(barcode);
-
+    
   let productManufacturer = usdaListItem.manu;
-  let productName = usdaListItem.name;
+  let productName = usdaListItem.name;  
   let bingImage = await findBingProductImage(productManufacturer, productName);
-
+    
   let productNdbno = usdaListItem.ndbno;
   let productObject = await getUsdaItemInfo(productNdbno);
 
