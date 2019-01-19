@@ -1,3 +1,8 @@
-const allergensModel = require('./src/models/02_allergens')
+const allergensModel = require("./src/models/02_allergens");
 
-allergensModel.getAllAllergensAliases()
+function getAllergens() {
+  return allergensModel.getAllAllergensAliases();
+}
+
+
+getAllergens()
